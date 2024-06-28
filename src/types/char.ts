@@ -1,0 +1,1 @@
+export type Char = string["length"] extends 1 ? string : never; 

@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
-import Word from './Word.tsx'
-import './index.css'
+import Word from './pages/Word.tsx'
+import './styles/index.css'
+import '@fontsource/noto-sans-kr'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <Word />
