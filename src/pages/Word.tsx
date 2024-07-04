@@ -32,10 +32,7 @@ export default function Word() {
     <div className="flex items-center justify-center h-screen text-[30px] tracking-[-0.5px] cursor-default"> 
       {
         !!value && value.map((char, idx) => 
-          <span 
-            key={idx} 
-            onMouseOver={() => handleMouseOver(char, idx)}
-          >{char}</span>
+          <span key={idx} onMouseOver={() => handleMouseOver(char, idx)}>{char}</span>
         )
       }
     </div>
