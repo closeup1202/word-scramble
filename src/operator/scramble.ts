@@ -17,18 +17,20 @@ export default class Scrambler {
 
   targetChar: Char;
   targetIdx: number;
-  counter: number;
+  count: number;
   randomChars: Char[]
   onScramble: React.Dispatch<React.SetStateAction<Char[]>> | null;
   frameId: number;
+  intervalMs: number;
 
   constructor(){
     this.targetChar = '' as Char
     this.targetIdx = 0;
-    this.counter = 20;
+    this.count = 20;
     this.randomChars = [];
     this.onScramble = null;
     this.frameId = 0;
+    this.intervalMs = 500;
   }
 
   target(char: Char, idx:number){
@@ -37,16 +39,21 @@ export default class Scrambler {
     return this;
   }
 
-  counters(counter: number){
-    this.counter = counter;
+  counter(count: number){
+    this.count = count;
+    return this;
+  }
+
+  interval(intervalMs: number){
+    this.intervalMs = intervalMs;
     return this;
   }
 
   generator(){
-    while(this.counter > 0){
+    while(this.count > 0){
       const idx = Math.floor(Math.random() * Scrambler.CHARACTORS.length - 1) + 1;
       this.randomChars.push(Scrambler.CHARACTORS[idx])
-      this.counter--;
+      this.count--;
     }
     this.randomChars.push(this.targetChar)
   }
@@ -56,6 +63,7 @@ export default class Scrambler {
     this.onScramble = onScramble
     this.frameId = requestAnimationFrame(() => this.change());
   }
+
   change(){
     if(this.onScramble && this.randomChars.length > 0){
       this.onScramble((prev:any) => prev.map((item: Char, index: number) => index === this.targetIdx ? this.randomChars.shift() : item))
